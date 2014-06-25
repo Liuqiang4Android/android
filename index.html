@@ -12,16 +12,10 @@
             /*background: #fff;*/
             background: #000;
         }
-		.footer{
-		   text-align:center;
-		     background: #ccc;
-		}
 	</style>
 </head>
 <body>
-	<canvas id="canvas" width="500" height="500"></canvas>
-	<hr />
-	<div class="footer">Demo，yhd(wchaowu)<br />Date:2014-6-24</div>
+	<canvas id="canvas" width="400" height="400"></canvas>
 </body>
 <script type="text/javascript">
     function drawSunSystem(){//太阳系
@@ -31,16 +25,16 @@
         //轨道
         context.strokeStyle = "#fff";
         context.beginPath();
-        context.arc(500,500,100,0,360,false);
+        context.arc(200,200,100,0,360,false);
         context.closePath();
         context.stroke();
         //太阳
         context.beginPath();
-        context.arc(500,500,20,0,360,false);
+        context.arc(200,200,20,0,360,false);
         context.closePath();
         //填充太阳
         
-        var sunColor = context.createRadialGradient(500,500,4,500,500,20);//径向渐变
+        var sunColor = context.createRadialGradient(200,200,4,200,200,20);//径向渐变
         sunColor.addColorStop(0,"#f30");
         sunColor.addColorStop(1,"#fb0");
         context.fillStyle = sunColor;
@@ -48,7 +42,7 @@
 
         //地球
         context.save();
-        context.translate(500,500);
+        context.translate(200,200);
         context.rotate(90*Math.PI/180);
         context.beginPath();
         context.arc(0,100,10,0,360,false);
@@ -67,7 +61,7 @@
     function drawTrack(){
         for(var i=0;i<8;i++){
             context.beginPath();
-            context.arc(250,250,(i+1)*25,0,360,false);
+            context.arc(200,200,(i+1)*20,0,360,false);
             context.closePath();
             context.strokeStyle = "#fff";
             context.stroke();
@@ -85,7 +79,7 @@
         this.interal = 0;
         this.drawStar = function() {
             context.save();//保存之前的画布内容
-            context.translate(250,250);//重置0,0坐标点
+            context.translate(200,200);//重置0,0坐标点
             context.rotate(this.interal*(360/this.cycle)*Math.PI/180);
             //画星球
             context.beginPath();
@@ -106,28 +100,28 @@
         Star.call(this,0,0,10,0,"#F00","#F90");
     }
     function Mercury(){//水星
-        Star.call(this,0,-25,5,87.70,"#a69697","#5c3e40");
+        Star.call(this,0,-20,5,87.70,"#a69697","#5c3e40");
     }
     function Venus(){
-        Star.call(this,0,-50,5,224.701,"#c4bbac","#1f1315");
+        Star.call(this,0,-40,5,224.701,"#c4bbac","#1f1315");
     }
     function Earth(){
-        Star.call(this,0,-75,5,365,"#78b1e8","#050c12");
+        Star.call(this,0,-60,5,365,"#78b1e8","#050c12");
     }
     function Mars(){
-        Star.call(this,0,-100,5,686.98,"#cec986","#76422d");
+        Star.call(this,0,-80,5,686.98,"#cec986","#76422d");
     }
     function Jupiter(){
-        Star.call(this,0,-125,5,4332.589,"#c0a4be","#322222");
+        Star.call(this,0,-100,5,4332.589,"#c0a4be","#322222");
     }
     function Satum(){
-        Star.call(this,0,-150,5,10759.5,"#f7f9e3","#5c4533");
+        Star.call(this,0,-120,5,10759.5,"#f7f9e3","#5c4533");
     }
     function Uranus(){
-        Star.call(this,0,-175,5,30799.095,"#a7e1e5","#19243a");
+        Star.call(this,0,-140,5,30799.095,"#a7e1e5","#19243a");
     }
     function Neptune(){
-        Star.call(this,0,-200,5,60152,"#0661b2","#1e3b73");
+        Star.call(this,0,-160,5,60152,"#0661b2","#1e3b73");
     }
     
     var sun = new Sun();
@@ -140,7 +134,7 @@
     var uranus = new Uranus();
     var neptune = new Neptune();
     function move(){
-        context.clearRect(0,0,1000,1000);
+        context.clearRect(0,0,500,500);
         drawTrack();
         sun.drawStar();
         mercury.drawStar();
