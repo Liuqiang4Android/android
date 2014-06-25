@@ -1,120 +1,32 @@
-
-<!DOCTYPE HTML5>
+﻿<!DOCTYPE html >
 <html>
-<head>
-	<meta charset="utf-8"/>
-	<title>Canvas绘图</title>		
-	<style>
-        body{
-            background: block;
-        }
-        #canvas{
-            /*background: #fff;*/
-            background: #000;
-        }
-	</style>
+ <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet"  href="./css/jquery.mobile-1.2.0.css" />  
+        <style>
+        </style>   
+		<script src="./js/jquery.js"></script>    
+		<script src="./js/jquery.mobile-1.2.0.js"></script>
+		<script src="./js/cordova-2.2.0.js"></script>
+		<script type="text/javascript" charset="utf-8"  src="./js/camera.js"> </script> 
 </head>
 <body>
-	<canvas id="canvas" width="400" height="400"></canvas>
-</body>
-<script type="text/javascript">
-    (function (){
-			 //画轨道
-			var canvas = document.getElementById("canvas");
-			var context = canvas.getContext("2d");
-			function drawTrack(){
-				for(var i=0;i<8;i++){
-					context.beginPath();
-					context.arc(200,200,(i+1)*20,0,360,false);
-					context.closePath();
-					context.strokeStyle = "#fff";
-					context.stroke();
-				}
-			}
-			//封装类，利用类的继承形成8颗行星以及太阳
-			function Star(x,y,radius,cycle,sColor,eColor){
-				this.x = x;
-				this.y = y;
-				this.radius = radius;//半径
-				this.cycle = cycle;  //公转周期
-				this.sColor = sColor;//星球颜色渐变开始色
-				this.eColor = eColor;//星球颜色渐变开始色
-				this.color = null;
-				this.interal = 0;
-				this.drawStar = function() {
-					context.save();//保存之前的画布内容
-					context.translate(200,200);//重置0,0坐标点
-					context.rotate(this.interal*(360/this.cycle)*Math.PI/180);
-					//画星球
-					context.beginPath();
-					context.arc(this.x,this.y,this.radius,0,360,false);
-					context.closePath();
-					//设置星球颜色
-					this.color = context.createRadialGradient(this.x,this.y,0,this.x,this.y,this.radius) ;
-					this.color.addColorStop(0,this.sColor);//渐变开始点
-					this.color.addColorStop(1,this.eColor);//渐变结束点
-					context.fillStyle = this.color;
-					context.fill();
-					context.restore();//恢复之前保存的画布内容
-					this.interal += 1;//每个时间间隔改变时间
-				}
-			};
-			//以下为创建各星球的构造函数
-			function Sun(){
-				Star.call(this,0,0,10,0,"#F00","#F90");
-			}
-			function Mercury(){//水星
-				Star.call(this,0,-20,5,87.70,"#a69697","#5c3e40");
-			}
-			function Venus(){
-				Star.call(this,0,-40,5,224.701,"#c4bbac","#1f1315");
-			}
-			function Earth(){
-				Star.call(this,0,-60,5,365,"#78b1e8","#050c12");
-			}
-			function Mars(){
-				Star.call(this,0,-80,5,686.98,"#cec986","#76422d");
-			}
-			function Jupiter(){
-				Star.call(this,0,-100,5,4332.589,"#c0a4be","#322222");
-			}
-			function Satum(){
-				Star.call(this,0,-120,5,10759.5,"#f7f9e3","#5c4533");
-			}
-			function Uranus(){
-				Star.call(this,0,-140,5,30799.095,"#a7e1e5","#19243a");
-			}
-			function Neptune(){
-				Star.call(this,0,-160,5,60152,"#0661b2","#1e3b73");
-			}
-			
-			var sun = new Sun();
-			var mercury = new Mercury();
-			var venus = new Venus();
-			var earth = new Earth();
-			var mars = new Mars();
-			var jupiter = new Jupiter();
-			var satum = new Satum();
-			var uranus = new Uranus();
-			var neptune = new Neptune();
-			function move(){
-				context.clearRect(0,0,500,500);
-				drawTrack();
-				sun.drawStar();
-				mercury.drawStar();
-				venus.drawStar();
-				earth.drawStar();
-				mars.drawStar();
-				jupiter.drawStar();
-				satum.drawStar();
-				uranus.drawStar();
-				neptune.drawStar();
-			}
-			
-			setInterval(move,100);
-	})();
-   
-   
-</script>
+        <!-- Home -->
+        <div data-role="page" id="homepage" style="background-image: url(./img/bg.png);" >
+            <div data-theme="e" data-role="header"> 
+                   <h2>HTML5相机</h2>    
+                   <button onclick="capturePhoto();">拍照</button> 
+                   <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">相册</button>
+            </div>
+            <div data-role="content" style="padding-top:15px;">
+			<div align="center">
+			<img style="display:none;width:98%;height:75%;"  id="smallImage" src=""  />    
+			</div>
+            </div>
+            <div data-theme="e" data-role="footer" data-position="fixed">
+                <span class="ui-title">yhd</span>
+            </div>
+         </div>
+    </body>
 </html>
-
